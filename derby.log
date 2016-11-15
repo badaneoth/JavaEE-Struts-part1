@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Jan 03 23:21:18 CET 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): instance a816c00e-0152-0994-9524-000002d04658 
+on database directory /home/badane/workspace/projet-jai/Mydb with class loader sun.misc.Launcher$AppClassLoader@4d7e1886 
+Loaded from file:/home/badane/workspace/projet-jai/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_66-b17
+user.dir=/home/badane/workspace/projet-jai
+os.name=Linux
+os.arch=amd64
+os.version=3.13.0-66-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

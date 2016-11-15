@@ -1,0 +1,108 @@
+
+
+<project name="tdd" default="m2ili">
+       <!-- fixer etudiant sur la ligne de commande
+         ant -Detudiant=leberre
+        -->
+       <property name="project.java.version" value="1.8"/>
+       <property name="encoding" value="UTF-8"/>
+       <!-- LE RESTE DOIT ETRE BON -->
+       <property name="build" value="build" />
+       <property name="testreports" value="testreports" />
+       <property name="src" value="src:tests" />
+       <target name="prepare" 
+	       description="Cree les repertoires et initialise certaines valeurs">
+         <!-- Create the time stamp -->
+         <tstamp/>
+         <mkdir dir="${build}" />
+         <mkdir dir="report"/>
+         <mkdir dir="${testreports}"/>
+       </target>
+
+  <path id="somePath">
+          <pathelement location="${build}"/>
+          <pathelement location="${etudiant}"/>
+          <fileset dir="lib">
+              <include name="*.jar" />
+          </fileset>
+          <fileset dir="lib">
+              <include name="*.jar" />
+          </fileset>
+  </path>
+
+  <target name="tests" depends="build"
+	  description="Lance les tests JUnit">
+	  <echo>Tests pour l'etudiant ${etudiant}</echo>
+    <junit fork="yes" forkmode="once" printsummary="yes" haltonfailure="no">
+      <classpath refid="somePath"/>
+      <formatter type="xml"/>
+      <formatter type="plain"/> 
+      <batchtest fork="yes" todir="${testreports}">
+        <fileset dir="${build}">
+		   <include name="**/*Rendu*.class" />
+		   <include name="**/*Complement*.class" />
+                   <exclude name="**/*Part*.class"/>
+        </fileset>
+      </batchtest>
+    </junit>
+
+  </target>
+
+	<target name="tests2" depends="build"
+		  description="Lance les tests JUnit">
+		  <echo>Tests pour l'etudiant ${etudiant}</echo>
+	    <junit fork="yes" forkmode="once" printsummary="yes" haltonfailure="yes">
+	      <classpath refid="somePath"/>
+	      <formatter type="xml"/>
+	      <formatter type="plain"/> 
+	      <batchtest fork="yes" todir="${testreports}">
+	        <fileset dir="${build}">
+			   <include name="**/*Rendu*Part1*.class" />
+	        </fileset>
+	      </batchtest>
+	    </junit>
+
+	  </target>
+	
+	<target name="tests3" depends="build"
+			  description="Lance les tests JUnit">
+			  <echo>Tests pour l'etudiant ${etudiant}</echo>
+		    <junit fork="yes" forkmode="once" printsummary="yes" haltonfailure="yes">
+		      <classpath refid="somePath"/>
+		      <formatter type="xml"/>
+		      <formatter type="plain"/> 
+		      <batchtest fork="yes" todir="${testreports}">
+		        <fileset dir="${build}">
+				   <include name="**/*Rendu*Part2*.class" />
+		        </fileset>
+		      </batchtest>
+		    </junit>
+
+  </target>
+  <target name="build" description="Compile les fichiers Java" 
+	  depends="prepare">
+    <javac
+        includeantruntime="true"
+        srcdir="${src}"
+        destdir="${build}"
+	    source="${project.java.version}"
+        debug="true"
+        encoding= "${encoding}"
+      >
+    <classpath refid="somePath"/>
+    </javac>
+  </target>
+
+  <target name="clean"
+	  description="Efface tous les fichiers generes">
+     <!-- Delete directory trees -->
+     <delete dir="${build}" />
+     <delete dir="${testreports}"/>
+     <delete dir="${target}"/>
+  </target>
+
+   <target name="m2ili" description="Verification des projets de JAI 2015" 
+	   depends="clean,build,tests,tests2,tests3"/>
+</project>
+
+
